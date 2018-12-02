@@ -1,0 +1,96 @@
+<div class="card" *ngIf="isLoading">
+    <h4 class="card-header">Loading...</h4>
+    <div class="card-block text-xs-center">
+        <i class="fa fa-circle-o-notch fa-spin fa-3x"></i>
+    </div>
+</div>
+
+<app-toast [message]="toast.message"></app-toast>
+
+<div class="card" *ngIf="!isLoading">
+    <h4 class="card-header">Projeto: {{projeto.length}}</h4>
+    <div class="card-block">
+        <table class="table table-bordered table-striped">
+            <thead class="thead-default">
+                <tr>
+                    <th>Escritório responsável</th>
+                    <th>Nome Projeto</th>
+                    <th>Gerente</th>
+                    <th>Competências</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody *ngIf="projeto.length === 0">
+                <tr>
+                    <td colspan="4">lista de Projeto vazia. Cadastre um novo.</td>
+                </tr>
+            </tbody>
+            <tbody *ngIf="!isEditing">
+                <tr *ngFor="let projeto of Projetos">
+                    <td>{{projeto.cod}}</td>
+                    <td>{{projeto.client}}</td>
+                    <td>{{projeto.gerente}}</td>
+                    <td>
+                         <select>
+                            <option *ngFor="let competencias of projeto.competencias">{{competencias}}</option>
+                        </select>   </td>
+                    <td>
+                        <button class="btn btn-sm btn-warning" (click)="enableEditing(projeto)"><i class="fa fa-pencil"></i> Editar</button> <button class="btn btn-sm btn-danger" (click)="deleteProjeto(projeto)"><i class="fa fa-trash"></i> Deletar</button>
+                    </td>
+                </tr>
+            </tbody>
+            <tbody *ngIf="isEditing">
+                <tr>
+                    <td colspan="4">
+                        <form class="form-inline" #form="ngForm" (ngSubmit)="editProjeto(projeto)" style="display:inline">
+                            <div class="form-group">
+                                <input class="form-control" type="text" name="cod" [(ngModel)]="projeto.cod" placeholder="CPF" required>
+                            </div>
+                            <div class="form-group">
+                                <input class="form-control" type="text" name="client" [(ngModel)]="projeto.client" placeholder="Nome" required>
+                            </div>
+                            <div class="form-group">
+                                <input class="form-control" type="text" name="gerente" [(ngModel)]="projeto.gerente" placeholder="Data admissão" required>
+                            </div>
+                            <button class="btn btn-sm btn-primary" type="submit"><i class="fa fa-floppy-o"></i> Salvar</button>
+                        </form>
+                        <button class="btn btn-sm btn-warning" (click)="cancelEditing()"><i class="fa fa-times"></i> Cancelar</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="card" *ngIf="!isEditing">
+    <h4 class="card-header">Novo Projeto</h4>
+    <div class="card-block">
+        <form class="form-inline" [formGroup]="addProjetoForm" (ngSubmit)="addProjeto()" style="text-align:center">
+      <div class="form-group">
+          <input class="form-control" type="text" name="cod" formControlName="cod" placeholder="Escritorio responsável">
+      </div>
+      <div class="form-group">
+        <input class="form-control" type="text" name="name" formControlName="client" placeholder="Nome">
+      </div>
+       <div class="form-group">
+        <input class="form-control" type="text" name="gerente" formControlName="gerente" placeholder="Gerente">
+      </div>
+      <div class="form-group">
+            <select  class="form-control" name="competencias" id="competencias" formControlName="competencias" multiple>
+        <option value="Competência 1">Competência 1</option>
+        <option value="Competência 2">Competência 2</option>
+        <option value="Competência 3">Competência 3</option>
+        <option value="Competência 4">Competência 4</option>
+        <option value="Competência 5">Competência 5</option>
+        <option value="Competência 6">Competência 6</option>
+        <option value="Competência 7">Competência 7</option>
+        <option value="Competência 8">Competência 8</option>
+        <option value="Competência 9">Competência 9</option>
+        <option value="Competência 10">Competência 10</option>
+      </select>
+    </div>
+      <button class="btn btn-primary" type="submit"><i class="fa fa-floppy-o"></i> Add</button>
+    </form>
+
+    </div>
+</div>
