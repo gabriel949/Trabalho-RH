@@ -138,7 +138,7 @@ db.once('open', function() {
         });
     /*PRODUCT*/
 
-    /*PEDIDO*/
+    /*funcionario*/
          //APIs
         //select all
         app.get('/funcionario', function(req, res) {
@@ -149,7 +149,7 @@ db.once('open', function() {
         });
 
         //count all
-        app.get('/pedidos/count', function(req, res) {
+        app.get('/funcionario/count', function(req, res) {
             Funcionario.count(function(err, count) {
                 if (err) return console.error(err);
                 res.json(count);
@@ -190,10 +190,10 @@ db.once('open', function() {
                 res.sendStatus(200);
             });
         });
-/*PEDIDO*/
+/*funcionario*/
 
 
-    /* Order Itens (Itens de pedidos) */
+    /* Order Itens (Itens de funcionario) */
     /* Recupera itens de acordo com o pedido */
     app.get('/orderItems/:orderId', function(req, res) {
         Avaliador.findOne({ orderId: req.params.orderId }, function(err, obj) {
@@ -213,7 +213,7 @@ db.once('open', function() {
         });
     });
 
-    /* Pesquisa produto */
+    /* Pesquisa */
     app.get('/avaliador/search/:query', function(req, res){
         Avaliador.find({name: new RegExp(req.params.query, "ig")}, function(err, docs) {
             if (err) return console.error(err);
