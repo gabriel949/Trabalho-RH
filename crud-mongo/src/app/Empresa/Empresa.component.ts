@@ -77,7 +77,7 @@ export class EmpresaComponent implements OnInit {
       res => {
         this.isEditing = false;
         this.Client = client;
-        this.toast.setMessage('Cliente Editado com Sucesso.', 'success');
+        this.toast.setMessage('Empresa Editado com Sucesso.', 'success');
       },
       error => console.log(error)
     );

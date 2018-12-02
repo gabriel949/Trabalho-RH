@@ -8,7 +8,7 @@
 <app-toast [message]="toast.message"></app-toast>
 
 <div class="card" *ngIf="!isLoading">
-    <h4 class="card-header">Avaliadores: {{Products.length}}</h4>
+    <h4 class="card-header">Avaliadores: {{Avaliadores.length}}</h4>
     <div class="card-block">
         <table class="table table-bordered table-striped">
             <thead class="thead-default">
@@ -18,30 +18,30 @@
                     <th>Actions</th>
                 </tr>
             </thead>
-            <tbody *ngIf="Products.length === 0">
+            <tbody *ngIf="Avaliadores.length === 0">
                 <tr>
                     <td colspan="4">Lista de avaliadores vazia. Cadastre um novo.</td>
                 </tr>
             </tbody>
             <tbody *ngIf="!isEditing">
-                <tr *ngFor="let product of Products">
-                    <td>{{product.ean}}</td>
-                    <td>{{product.name}}</td>
+                <tr *ngFor="let avaliador of Avaliadores">
+                    <td>{{avaliador.ean}}</td>
+                    <td>{{avaliador.name}}</td>
 
                     <td>
-                        <button class="btn btn-sm btn-warning" (click)="enableEditing(product)"><i class="fa fa-pencil"></i> Editar</button> <button class="btn btn-sm btn-danger" (click)="deleteProduct(product)"><i class="fa fa-trash"></i> Deletar</button>
+                        <button class="btn btn-sm btn-warning" (click)="enableEditing(avaliador)"><i class="fa fa-pencil"></i> Editar</button> <button class="btn btn-sm btn-danger" (click)="deleteAvaliador(avaliador)"><i class="fa fa-trash"></i> Deletar</button>
                     </td>
                 </tr>
             </tbody>
             <tbody *ngIf="isEditing">
                 <tr>
                     <td colspan="4">
-                        <form class="form-inline" #form="ngForm" (ngSubmit)="editProduct(Product)" style="display:inline">
+                        <form class="form-inline" #form="ngForm" (ngSubmit)="editAvaliador(Avaliador)" style="display:inline">
                             <div class="form-group">
-                                <input class="form-control" type="text" name="ean" [(ngModel)]="Product.ean" placeholder="Código de Barras" required>
+                                <input class="form-control" type="text" name="ean" [(ngModel)]="Avaliador.ean" placeholder="Código de Barras" required>
                             </div>
                             <div class="form-group">
-                                <input class="form-control" type="text" name="name" [(ngModel)]="Product.name" placeholder="Nome do Produto" required>
+                                <input class="form-control" type="text" name="name" [(ngModel)]="Avaliador.name" placeholder="Nome do Produto" required>
                             </div>
                             <button class="btn btn-sm btn-primary" type="submit"><i class="fa fa-floppy-o"></i> Salvar</button>
                         </form>
@@ -56,7 +56,7 @@
 <div class="card" *ngIf="!isEditing">
     <h4 class="card-header">Novo Avaliador</h4>
     <div class="card-block">
-        <form class="form-inline" [formGroup]="addProductForm" (ngSubmit)="addProduct()" style="text-align:center">
+        <form class="form-inline" [formGroup]="addAvaliadorForm" (ngSubmit)="addAvaliador()" style="text-align:center">
             <div class="form-group">
                 <input class="form-control" type="text" name="cod" formControlName="ean" placeholder="Nome">
             </div>

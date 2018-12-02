@@ -11,13 +11,13 @@ import { DataService } from '../services/data.service';
 })
 export class AvaliadorComponent implements OnInit {
 
-Products = [];
+Avaliadores = [];
 isLoading =  true;
 
-Product = {};
+Avaliador = {};
 isEditing = false;
 
-addProductForm: FormGroup;
+addAvaliadorForm: FormGroup;
 ean = new FormControl('', Validators.required);
 name = new FormControl('', Validators.required);
 qtde = new FormControl(Validators.required);
@@ -30,7 +30,7 @@ qtde = new FormControl(Validators.required);
   ngOnInit() {
     this.get();
 
-    this.addProductForm = this.FormBuilder.group({
+    this.addAvaliadorForm = this.FormBuilder.group({
       ean: ['', Validators.required],
       name: ['', Validators.required],
       qtde: ['', Validators.required]
@@ -39,54 +39,54 @@ qtde = new FormControl(Validators.required);
 
   get(){
     this.dataService.get("/avaliador").subscribe(
-      (data)=> {this.Products = data; console.log(data)},
+      (data)=> {this.Avaliadores = data; console.log(data)},
       error => console.log(error),
       () => this.isLoading = false
     );
   }
 
-  addProduct(){
-    this.dataService.add("/avaliador", this.addProductForm.value).subscribe(
+  addAvaliador(){
+    this.dataService.add("/avaliador", this.addAvaliadorForm.value).subscribe(
       res => {
         const newProduct = res.json();
-        this.Products.push(newProduct);
-        this.addProductForm.reset();
+        this.Avaliadores.push(newProduct);
+        this.addAvaliadorForm.reset();
         this.toast.setMessage('Avaliador Adicionado com Sucesso', 'success');
       },
       error => console.log(error)
     );
   }
 
-enableEditing(product){
+enableEditing(avaliador){
   this.isEditing = true;
-  this.Product = product;
+  this.Avaliador = avaliador;
 }
 
 cancelEditing(){
   this.isEditing = false;
-  this.Product = {};
+  this.Avaliador = {};
   this.toast.setMessage('Edição Cancelada.', 'warning');
   //reload the cats to reset the editing
   this.get();
 }
 
-editProduct(product){
-  this.dataService.edit("/avaliador", product).subscribe(
+editAvaliador(avaliador){
+  this.dataService.edit("/avaliador", avaliador).subscribe(
     res => {
       this.isEditing = false;
-      this.Product = product;
+      this.Avaliador = avaliador;
       this.toast.setMessage('Produto Editado com Sucesso', 'success');
     },
     error => console.log(error)
   );
 }
 
-deleteProduct(product){
+deleteAvaliador(avaliador){
   if(window.confirm('Deseja mesmo deletar esse produto?')){
-    this.dataService.delete("/avaliador", product).subscribe(
+    this.dataService.delete("/avaliador", avaliador).subscribe(
       res => {
-        const pos = this.Products.map(elem => { return elem._id; }).indexOf(product._id);
-        this.Products.splice(pos, 1);
+        const pos = this.Avaliadores.map(elem => { return elem._id; }).indexOf(avaliador._id);
+        this.Avaliadores.splice(pos, 1);
         this.toast.setMessage('Avaliador Deletado com Sucesso', 'success');
       },
       error => console.log(error)

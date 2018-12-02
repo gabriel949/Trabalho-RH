@@ -11,14 +11,12 @@ import { DataService } from './services/data.service';
 import { ToastComponent } from './shared/toast/toast.component';
 import { AvaliadorComponent } from './avaliador/avaliador.component';
 import { FuncionarioComponent } from './funcionario/funcionario.component';
-import { OrderItemsComponent } from './order-items/order-items.component';
 
 const routing : Routes = [
     { path: '',      component: EmpresaComponent },
     { path: 'app/empresa', component: EmpresaComponent },
     { path: 'app/avaliador', component: AvaliadorComponent },
     { path: 'app/funcionario', component: FuncionarioComponent },
-    { path: 'app/order-items/:orderId', component: OrderItemsComponent}
 ];
 
 @NgModule({
@@ -28,7 +26,6 @@ const routing : Routes = [
     EmpresaComponent,
     AvaliadorComponent,
     FuncionarioComponent,
-    OrderItemsComponent
 ],
   imports: [
     BrowserModule,
